@@ -41,7 +41,7 @@ def main():
                 if (count>max-1 and max!=0):
                     return
                 with open("./GIFS/%s.%s"%(r["slug"],extension),"wb") as g:
-                    res_gif = requests.get(r["images"]["original"][extension])
+                    res_gif = requests.get(r["images"]["original"][extension if extension=="mp4" else "url"])
                     count+=1
                     print("%d/%s Downloading GIF with id : %s"%(count,max if max != 0 else ".",r["slug"]))
                     g.write(res_gif.content)
