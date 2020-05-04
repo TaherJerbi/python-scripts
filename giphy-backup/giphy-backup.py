@@ -11,7 +11,19 @@ def main():
         # Find the Channel id to make the api call.
         id = int(content[index+11:].split("}")[0])
         print("User Found. ID : %d"%id)
+
+        # Set max downloads
         max = int(input("How many GIFs would you like to download? (Enter 0 to download all) : "))
+
+        # Set File extension
+        print("Choose a file extention\n1/ .gif\n2/ .mp4")
+        ext_r = ""
+        while not ext_r in ["1","2"]:
+            ext_r = input(": ")
+        extension = "gif" if ext_r is "1" else "mp4"
+        print("Extension : %s"%extension)
+
+
         LINK = "https://giphy.com/api/v3/channels/%d/gifs"%id
         current_link = LINK 
         part = 1
@@ -28,8 +40,8 @@ def main():
             for r in results:
                 if (count>max-1 and max!=0):
                     return
-                with open("./GIFS/%s.gif"%r["slug"],"wb") as g:
-                    res_gif = requests.get(r["images"]["original"]["url"])
+                with open("./GIFS/%s.%s"%(r["slug"],extension),"wb") as g:
+                    res_gif = requests.get(r["images"]["original"][extension])
                     count+=1
                     print("%d/%s Downloading GIF with id : %s"%(count,max if max != 0 else ".",r["slug"]))
                     g.write(res_gif.content)
