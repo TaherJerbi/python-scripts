@@ -1,2 +1,2 @@
 # Giphy Backup
-Download all the gifs from a Giphy channel
+The API allows Giphy Searches for non-verified Channels.
